@@ -1,11 +1,12 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Board.h"
 using namespace std;
 
 static string cellMarker = "[ ]";
 static string cellMissMarker = "[O]";
 static string cellHitMarker = "[X]";
-static string cellShipPosition = " * ";
+static string cellShipPosition = " # ";
+static string emptyCell = "   ";
 
 Board::Board(Player* player, int width, int height) : player(player)
 {
@@ -60,13 +61,29 @@ void Board::placeShip(int x, int y, Ship* ship, bool horizontal)
 	}
 }
 
-void Board::printState(bool showShipPositions, bool showName)
+void Board::printState(bool showShipPositions)
 {
-	if (showName) {
-		cout << "Current state of " << player->getName() << " board" << endl;
+
+	int widthMiddle = width / 2;
+	int heightMiddle = height / 2;
+
+	//Print X axis marker
+	for (int i = 0; i < widthMiddle; i++) {
+		cout << emptyCell;
 	}
+	cout << " X " << endl;
+
+	//Print the header
+	cout << emptyCell << emptyCell;
+	for (int i = 0; i < width; i++) {
+		cout << "|" << i << "|";
+	}
+	cout << endl;
 
 	for (int i = 0; i < height; i++) {
+		string axisMarker = i == heightMiddle ? " Y " : emptyCell;
+		cout << axisMarker;
+		cout << "|" << i << "|";
 		for (int j = 0; j < width; j++) {
 			string marker;
 			Cell* cell = cells.at(i).at(j);
