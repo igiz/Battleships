@@ -5,21 +5,21 @@ Cell::Cell():empty(true)
 {
 }
 
-Ship * Cell::getOwner()
+Ship * Cell::getOccupier()
 {
-	return owner;
+	return ship;
 }
 
-void Cell::setOwner(Ship* owner)
+void Cell::occupy(Ship* ship)
 {
 	empty = false;
-	this->owner = owner;
+	this->ship = ship;
 }
 
 bool Cell::shoot()
 {
 	if (!empty) {
-		owner->hit();
+		ship->hit();
 	}
 	return !empty;
 }
@@ -27,4 +27,9 @@ bool Cell::shoot()
 bool Cell::isHit()
 {
 	return hit;
+}
+
+bool Cell::isEmpty()
+{
+	return empty;
 }

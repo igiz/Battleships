@@ -6,15 +6,16 @@
 
 class Cell {
 	private:
-		Ship* owner;
+		Ship* ship;
 		bool empty;
 		bool hit;
 	public:
 		Cell();
-		Ship* getOwner();
-		void setOwner(Ship* owner);
+		Ship* getOccupier();
+		void occupy(Ship* ship);
 		bool shoot();
 		bool isHit();
+		bool isEmpty();
 };
 
 #endif

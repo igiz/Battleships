@@ -15,6 +15,7 @@ class Board {
 	private:
 		Player* player;
 		vector<vector<Cell*>> cells;
+		vector<Ship*> ships;
 		int width;
 		int height;
 		bool isInBounds(int x, int y);
@@ -22,7 +23,8 @@ class Board {
 		Board(Player* player, int width, int height);
 		void shoot(int x, int y);
 		void placeShip(int x, int y, Ship* ship, bool horizontal);
-		void printState();
+		void printState(bool includeShipPositions);
+		bool hasLost();
 };
 
 #endif
