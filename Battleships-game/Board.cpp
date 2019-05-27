@@ -50,6 +50,9 @@ void Board::placeShip(int x, int y, Ship* ship, bool horizontal)
 	int yBounds = y + (horizontal ? 0 : ship->getSize()-1);
 
 	if (isInBounds(xBounds, yBounds)) {
+		if (collides(x, y, xBounds, yBounds)) {
+			throw invalid_argument("Ship collides with another ship at this location");
+		}
 		ships.push_back(ship);
 		for (int i = y; i <= yBounds; i++) {
 			for (int j = x; j <= xBounds; j++) {
@@ -124,6 +127,18 @@ Player* Board::getPlayer()
 bool Board::isInBounds(int x, int y)
 {
 	bool result = x <= width && y <= height;
+	return result;
+}
+
+bool Board::collides(int startX, int startY, int endX, int endY)
+{
+	bool result = false;
+	for (int i = startY; i <= endY && !result; i++) {
+		for (int j = startX; j <= endX && !result; j++) {
+			Cell* cell = cells.at(i).at(j);
+			result = !cell->isEmpty();
+		}
+	}
 	return result;
 }
 

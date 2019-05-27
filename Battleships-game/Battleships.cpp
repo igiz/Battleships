@@ -117,7 +117,6 @@ int main()
 
 //Factory function for ships
 Ship* createShip(string name) {
-
 	//"CARRIER", "BATTLESHIP", "SUBMARINE","CRUISER","DESTROYER"
 	if (name == "CARRIER") {
 		return new Carrier();

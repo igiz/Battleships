@@ -19,6 +19,7 @@ class Board {
 		int width;
 		int height;
 		bool isInBounds(int x, int y);
+		bool collides(int startX , int startY , int endX, int endY);
 	public:
 		Board(Player* player, int width, int height);
 		void shoot(int x, int y);
