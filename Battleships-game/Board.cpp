@@ -60,9 +60,11 @@ void Board::placeShip(int x, int y, Ship* ship, bool horizontal)
 	}
 }
 
-void Board::printState(bool showShipPositions)
+void Board::printState(bool showShipPositions, bool showName)
 {
-	cout << "Current state of " << player->getName() << " board" << endl;
+	if (showName) {
+		cout << "Current state of " << player->getName() << " board" << endl;
+	}
 
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {

@@ -20,6 +20,7 @@ bool Cell::shoot()
 {
 	if (!empty) {
 		ship->hit();
+		hit = true;
 	}
 	return !empty;
 }

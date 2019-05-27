@@ -23,7 +23,7 @@ class Board {
 		Board(Player* player, int width, int height);
 		void shoot(int x, int y);
 		void placeShip(int x, int y, Ship* ship, bool horizontal);
-		void printState(bool includeShipPositions);
+		void printState(bool includeShipPositions, bool showName);
 		bool hasLost();
 		Player* getPlayer();
 };

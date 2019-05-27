@@ -16,6 +16,7 @@ int main()
 	int boardSize;
 	Board* boards[2] = {};
 	string fleet[2] = { "Carrier","Carrier" };
+	size_t fleetLength = sizeof(fleet) / sizeof(fleet[0]);
 
 	cout << "Battleships : Legends never die" << endl;
 	cout << "Enter board size: (N = N x N board)" << endl;
@@ -26,20 +27,17 @@ int main()
 		string name;
 		cout << "Enter player " << (i + 1) << " name" << endl;
 		cin >> name;
-		Player player = Player::Player(name);
-		Board playerBoard = Board::Board(&player, boardSize, boardSize);
+		Player* player = new Player(name);
+		Board* playerBoard = new Board(player, boardSize, boardSize);
 		cout << name << " place your ships..." << endl;
 
 		//Place ships
-		for (size_t j = 0; j < fleet->size(); j++) {
+		for (size_t j = 0; j < fleetLength; j++) {
 			do {
 				try {
 					int x;
 					int y;
 					bool horizontal;
-
-					//Print current state of the board
-					playerBoard.printState(true);
 
 					//Collect co-ordinates
 					cout << "Type X co-ordinates for your " + fleet[j] << endl;
@@ -51,7 +49,12 @@ int main()
 
 					//Create and save ship
 					Ship* ship = createShip(fleet[j]);
-					playerBoard.placeShip(x, y, ship, horizontal);
+					playerBoard->placeShip(x, y, ship, horizontal);
+
+					cout << "Ship placed , board looks like:" << endl;
+					//Print current state of the board
+					playerBoard->printState(true, true);
+
 					break;
 				}
 				catch (exception& ex) {
@@ -62,7 +65,7 @@ int main()
 			//Save board for the game
 
 		}
-		boards[i] = &playerBoard;
+		boards[i] = playerBoard;
 	}
 
 
@@ -73,7 +76,7 @@ int main()
 		Board* enemyBoard = boards[enemy];
 		cout << "Its " << boards[currentPlayer]->getPlayer()->getName() << " turn." << endl;
 		cout << "Current state of the enemy board:" << endl;
-		enemyBoard->printState(false);
+		enemyBoard->printState(false, false);
 
 		do {
 			try {
@@ -95,8 +98,7 @@ int main()
 		if (enemyBoard->hasLost()) {
 			cout << "All enemy ships destroyed! The winner is " << boards[currentPlayer]->getPlayer()->getName() << endl;
 			break;
-		}
-		else {
+		} else {
 			int temp = enemy;
 			enemy = currentPlayer;
 			currentPlayer = temp;
