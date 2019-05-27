@@ -25,6 +25,7 @@ class Board {
 		void placeShip(int x, int y, Ship* ship, bool horizontal);
 		void printState(bool includeShipPositions);
 		bool hasLost();
+		Player* getPlayer();
 };
 
 #endif
